@@ -18,13 +18,17 @@ public class YearWheel extends Wheel
 
     @Override
     void init() {
+        final String locale = pickerView.locale.getLanguage();
         final int startYear = getStartYear();
         final int endYear = getEndYear() ;
         int max = endYear - startYear;
 
         for (int i = 0; i <= max; ++i) {
+            String currentDateString = String.valueOf(startYear + i);
+            if(locale == "ko")
+                currentDateString = currentDateString + "년";
             values.add(String.valueOf(startYear + i));
-            displayValues.add(String.valueOf(startYear + i));
+            displayValues.add(currentDateString);
         }
 
         picker.setMaxValue(0);

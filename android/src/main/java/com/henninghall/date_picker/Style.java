@@ -2,14 +2,16 @@ package com.henninghall.date_picker;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-
+import com.henninghall.date_picker.wheelFunctions.SetShowCount;
 import com.henninghall.date_picker.wheelFunctions.TextColor;
-
-import org.w3c.dom.Text;
 
 
 class Style {
+    private static int DP_PER_SHOW_SHOW_COUNT = 35;
+
     private final GradientDrawable gradientBottom;
     private final GradientDrawable gradientTop;
     private final PickerView pickerView;
@@ -36,6 +38,13 @@ class Style {
 
     public void setTextColor(String color) {
         this.pickerView.applyOnAllWheels(new TextColor(color));
+    }
+
+    public void setHeight(int height) {
+        int showCount = height / DP_PER_SHOW_SHOW_COUNT;
+        int oddShowCount = showCount % 2 == 0 ? showCount + 1 : showCount;
+        pickerView.applyOnAllWheels(new SetShowCount(oddShowCount));
+        pickerView.setShownCountOnEmptyWheels(oddShowCount);
     }
 
     private boolean validColor(String color){
